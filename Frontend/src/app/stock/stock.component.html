@@ -1,0 +1,110 @@
+<div class="container mt-5">
+  <i class="fas fa-arrow-left" (click)="goBack()"></i> Back
+
+  <!-- Delete Button at Top-Right -->
+  <button
+    class="btn btn-danger position-absolute top-0 end-0 m-2"
+    (click)="deleteStockHoldingsData(0)"
+  >
+    Delete All
+  </button>
+
+  <h1 class="text-center mb-4">Upload Investment Portfolio Excel</h1>
+
+  <!-- File input for Excel file -->
+  <div class="input-group mb-3">
+    <input
+      type="file"
+      class="form-control"
+      (change)="onFileSelect($event)"
+      accept=".xlsx, .xls"
+    />
+    <button
+      class="btn btn-primary"
+      (click)="onUpload()"
+      [disabled]="!selectedFile || portfolioData?.StockHoldings?.length > 0"
+    >
+      Upload
+    </button>
+  </div>
+
+  <!-- Display the portfolio data in a table -->
+
+  <h1 class="text-center mb-4">Invested Stocks data</h1>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h5 class="text-center mb-4">Total Profit</h5>
+      <h4 class="text-center text-success">
+        ₹ {{ portfolioData.ProfitLossSummary?.totalProfit | number : "1.2-2" }}
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <h5 class="text-center mb-4">Total Loss</h5>
+      <h4 class="text-center text-danger">
+        ₹ {{ portfolioData.ProfitLossSummary?.totalLoss | number : "1.2-2" }}
+      </h4>
+    </div>
+    <div class="col-md-4">
+      <h5 class="text-center mb-4">Overall PL</h5>
+      <h4 class="text-center text-danger">
+        ₹
+        {{
+          portfolioData.ProfitLossSummary?.totalProfit -
+            -portfolioData.ProfitLossSummary?.totalLoss | number : "1.2-2"
+        }}
+      </h4>
+    </div>
+  </div>
+
+  <p-table
+    [value]="portfolioData?.StockHoldings"
+    [paginator]="true"
+    [rows]="7"
+    [rowsPerPageOptions]="[5, 7, 10, 20]"
+    [responsiveLayout]="'scroll'"
+    [style]="{ 'margin-top': '20px' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Stock Name</th>
+        <th>Quantity</th>
+        <th>Buy Price</th>
+        <th>Buy Value</th>
+        <th>Sell Price</th>
+        <th>Sell Value</th>
+        <th><a [routerLink]="['/dashboard']">Realised P&L</a></th>
+        <th>Buy Date</th>
+        <th>Sell Date</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-data>
+      <tr
+        [ngClass]="{
+          'table-dark text-center': data.stockName === 'Stock name',
+          'highlight-row':
+            data.stockName === 'Stock name' ||
+            data.stockName === 'Unrealised trades'
+        }"
+      >
+        <td>{{ data.stockName }}</td>
+        <td>{{ data.quantity }}</td>
+        <td>{{ data.purchasePrice }}</td>
+        <td>{{ data.purchaseValue }}</td>
+        <td>{{ data.sellPrice }}</td>
+        <td>{{ data.sellValue }}</td>
+        <td
+          [ngClass]="{
+            'text-success': data.bookedProfitLoss >= 0,
+            'text-danger': data.bookedProfitLoss < 0
+          }"
+        >
+          {{ data.bookedProfitLoss }}
+        </td>
+        <td>{{ data.purchaseDate | date: 'dd-MM-yyyy'}}</td>
+        <td>{{ data.sellDate | date: 'dd-MM-yyyy' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

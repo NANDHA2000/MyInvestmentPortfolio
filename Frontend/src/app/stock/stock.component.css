@@ -1,0 +1,150 @@
+.container {
+    max-width: 1670px;
+  }
+  
+  h1 {
+    color: #3a3a3a;
+  }
+  
+  .table {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th, .table td {
+
+    vertical-align: middle;
+    /* width: 100%; */
+  }
+  
+  .input-group {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  button:disabled {
+    background-color: #c3c3c3;
+    cursor: not-allowed;
+  }
+
+  .custom-table {
+    width: fit-content;
+    table-layout: fixed; /* Optionally set fixed layout to evenly distribute columns */
+  }
+  
+  .custom-table th, .custom-table td {
+    /* white-space: nowrap; */
+    padding: 15px; /* Adjust padding for better spacing */
+  }
+
+  .highlight-row {
+    background-color: black;    /* Black background */
+    color: white;               /* White text color */
+    font-weight: bold;   
+    text-align: center;       /* Optional: make text bold */
+  }
+
+
+  .action-buttons {
+    position: absolute;
+    top: 10px;  /* Adjust distance from the top */
+    right: 10px; /* Adjust distance from the right */
+    z-index: 1000;  /* Ensure the buttons are above other content */
+    display: flex;
+    gap: 10px; /* Space between buttons */
+  }
+  
+  .action-buttons .btn {
+    font-size: 1.2rem;  /* Adjust button size */
+    padding: 0.5rem 1rem;  /* Adjust padding for a better look */
+  }
+  
+  .action-buttons .btn i {
+    margin-right: 8px;  /* Space between icon and text */
+  }
+  
+  
+ ::ng-deep .p-datatable-thead > tr > th,
+::ng-deep .p-datatable-tbody > tr > td {
+  padding: 0.35rem 0.75rem !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+ ::ng-deep .p-datatable-thead > tr > th{
+  background-color: #343a40 !important;
+  color: white;
+ }
+
+::ng-deep .p-datatable-tbody > tr {
+  line-height: 1.2 !important;
+}
+
+::ng-deep .p-datatable {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr {
+  background-color: #343a40;
+  color: white;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #e2e6ea;
+}
+
+/* Reduce paginator size */
+/* Reduce paginator size */
+::ng-deep .p-paginator {
+  padding: 0.2rem 0.5rem !important;
+  font-size: 0.75rem !important;
+}
+
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page,
+::ng-deep .p-paginator .p-paginator-prev,
+::ng-deep .p-paginator .p-paginator-next,
+::ng-deep .p-paginator .p-paginator-current {
+  padding: 0.25rem 0.5rem !important;
+  min-width: 1.75rem !important;
+  height: 1.75rem !important;
+  font-size: 0.75rem !important;
+  margin: 0 0.1rem !important;
+}
+
+/* Shrink dropdown and input */
+::ng-deep .p-paginator .p-dropdown,
+::ng-deep .p-paginator .p-inputtext {
+  font-size: 0.75rem !important;
+  height: 1.75rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Shrink dropdown options and selected label */
+::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  font-size: 0.75rem !important;
+  padding: 0.25rem 0.5rem !important;
+  width: auto;
+}
+
+::ng-deep .p-dropdown-label {
+  font-size: 0.75rem !important;
+  padding: 0.25rem 0.5rem !important;
+}
+
+
+
+
+  
+  

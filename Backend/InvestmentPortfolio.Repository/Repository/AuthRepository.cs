@@ -51,5 +51,18 @@ namespace InvestmentPortfolio.Repository.Repository
                 return await connection.ExecuteScalarAsync<bool>("sp_ValidateUser", parameters, commandType: CommandType.StoredProcedure);
             }
         }
+
+        public async Task<List<dynamic>> GetFeatures()
+        {
+            using(var connection = new SqlConnection(_connectionString))
+            {
+                var result = await connection.QueryAsync(
+                    "[dbo].[IP_GetFeatures]",
+                    commandType: CommandType.StoredProcedure);
+
+                return result.ToList();
+            }
+        }
+
     }
 }

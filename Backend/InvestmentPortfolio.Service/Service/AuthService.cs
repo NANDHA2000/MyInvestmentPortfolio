@@ -25,9 +25,9 @@ namespace InvestmentPortfolio.Service.Service
             return await _authRepository.RegisterUser(user);
         }
 
-        public Task<string> GetNavBar()
+        public async Task<List<dynamic>> GetFeatures()
         {
-            throw new NotImplementedException();
+            return await _authRepository.GetFeatures();
         }
     }
 }

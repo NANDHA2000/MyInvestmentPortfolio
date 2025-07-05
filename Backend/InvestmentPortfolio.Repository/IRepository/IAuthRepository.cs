@@ -11,5 +11,6 @@ namespace InvestmentPortfolio.Repository.IRepository
     {
         Task<bool> RegisterUser(User user);
         Task<bool> ValidateUser(string email, string password);
+        Task<List<dynamic>> GetFeatures();
     }
 }

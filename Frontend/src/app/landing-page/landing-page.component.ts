@@ -11,23 +11,24 @@ import { URL_LIST } from '../Config/url.config';
   styleUrls: ['./landing-page.component.css'],
 })
 export class LandingPageComponent {
-  navLinks: any;
+  features: any;
 
   constructor(private http: HttpClient,private router: Router) {}
 
   ngOnInit(): void {
-    //this.getNavData();
+    this.getFeaturesData();
   }
 
-  getNavData() {
-    this.http
-      .get<any[]>(URL_LIST.NAVBAR)
-      .subscribe((res) => {
-        this.navLinks = res;
-        console.log(this.navLinks);
-        
-      });
-  }
+getFeaturesData() {
+  this.http.get<any[]>(URL_LIST.FEATURES).subscribe((res) => {
+    this.features = res.map(item => ({
+      label: item.FeatureName,
+      route: item.Route ? item.Route : '/' + item.FeatureName.toLowerCase().replace(/\s+/g, '-')
+    }));
+    console.log(this.features);
+  });
+}
+
 
   logout() {
     localStorage.removeItem('userToken');

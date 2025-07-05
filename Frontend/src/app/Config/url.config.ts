@@ -6,7 +6,7 @@ export const URL_LIST={
     REGISTER:`${environment.BaseUrl}Login/Register`,
 
     //Nav
-    NAVBAR:`${environment.BaseUrl}Login/GetNavBar`,
+    FEATURES:`${environment.BaseUrl}Auth/Features`,
 
     //Stocks
     GET_STOCK_DETAILS:`${environment.BaseUrl}Stocks/StocksHoldings`,
@@ -14,8 +14,8 @@ export const URL_LIST={
     DELETE_STOCK_DETAILS:`${environment.BaseUrl}Investment/DeleteStockData`,
 
     //Mf
-    GET_MF_DETAILS:`${environment.BaseUrl}Investment/GetInvestedDetails`,
-    ADD_MF_DETAILS:`${environment.BaseUrl}Investment/UploadGrowwReport`,
+    GET_MF_DETAILS:`${environment.BaseUrl}MutualFund/MutualFundHoldings`,
+    ADD_MF_DETAILS:`${environment.BaseUrl}MutualFund/UploadGrowwReport`,
     GET_MF_DAYPERFORMANCE_DETAILS:`${environment.BaseUrl}MutualFund/GetData`,
     TRIGGER_MF_DAYPERFORMANCE_DETAILS:`${environment.BaseUrl}MutualFund/DayPerformanceMF`,
     GET_SCHEME_NAMES:`${environment.BaseUrl}MutualFund/GetSchemeNames`,

@@ -7,6 +7,6 @@ namespace InvestmentPortfolio.Service.IService
 
         Task<bool> ValidateUser(string email, string password);
         Task<bool> RegisterUser(User user);
-        Task<string> GetNavBar();
+        Task<List<dynamic>> GetFeatures();
     }
 }

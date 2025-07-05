@@ -21,43 +21,39 @@
   </div>
   <table class="table table-bordered table-hover table-striped">
     <thead class="table-dark text-center">
-      <tr *ngFor="let data of mutualFundData.holdings; let i = index">
-        <td *ngIf="i === 1">{{ data.schemeName }}</td>
-        <td *ngIf="i === 1">{{ data.amc }}</td>
-        <td *ngIf="i === 1">{{ data.category }}</td>
-        <td *ngIf="i === 1">{{ data.subCategory }}</td>
-        <td *ngIf="i === 1">{{ data.folioNo }}</td>
-        <td *ngIf="i === 1">{{ data.source }}</td>
-        <td *ngIf="i === 1">{{ data.units }}</td>
-        <td *ngIf="i === 1">{{ data.investedValue }}</td>
-        <td *ngIf="i === 1">{{ data.currentValue }}</td>
-        <td *ngIf="i === 1">{{ data.returns }}</td>
-        <td *ngIf="i === 1">{{ data.xirr }}</td>
-        <td *ngIf="i === 1">Action</td>
-      </tr>
+      <tr>
+      <th>Scheme Name</th>
+      <th>AMC</th>
+      <th>Category</th>
+      <th>Sub-Category</th>
+      <th>Source</th>
+      <th>Units</th>
+      <th>Invested Value</th>
+      <th>Current Value</th>
+      <th>Returns</th>
+      <th>Action</th>
+    </tr>
     </thead>
     <tbody>
       <tr
-        *ngFor="let data of mutualFundData.holdings; let i = index"
+        *ngFor="let data of mutualFundData; let i = index"
         class="text-center"
       >
-        <td *ngIf="i > 2">{{ data.schemeName }}</td>
-        <td *ngIf="i > 2">{{ data.amc }}</td>
-        <td *ngIf="i > 2">{{ data.category }}</td>
-        <td *ngIf="i > 2">{{ data.subCategory }}</td>
-        <td *ngIf="i > 2">{{ data.folioNo }}</td>
-        <td *ngIf="i > 2">{{ data.source }}</td>
-        <td *ngIf="i > 2">{{ data.units }}</td>
-        <td *ngIf="i > 2">{{ data.investedValue }}</td>
-        <td *ngIf="i > 2">{{ data.currentValue }}</td>
+        <td>{{ data.schemeName }}</td>
+        <td>{{ data.amc }}</td>
+        <td>{{ data.category }}</td>
+        <td>{{ data.subCategory }}</td>
+        <td>{{ data.source }}</td>
+        <td>{{ data.units }}</td>
+        <td>{{ data.investedValue }}</td>
+        <td>{{ data.currentValue }}</td>
         <td 
         [ngClass]="{
           'text-success': data.returns >= 0,
           'text-danger': data.returns < 0
         }"
-        *ngIf="i > 2">{{ data.returns }}</td>
-        <td *ngIf="i > 2">{{ data.xirr }}</td>
-        <td *ngIf="i > 2">
+        >{{ data.returns }}</td>
+        <td>
           <button
             class="btn btn-info btn-sm"
             (click)="viewDayPerformance(data)"

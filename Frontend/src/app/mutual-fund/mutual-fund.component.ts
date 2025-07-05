@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { URL_LIST } from '../Config/url.config';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mutual-fund',
@@ -10,8 +11,8 @@ import { URL_LIST } from '../Config/url.config';
 })
 export class MutualFundComponent implements OnInit {
   selectedFile: File | null = null;
-  mutualFundData: any;
-  schemePerformanceData: any[] = [];  // For the second API response
+  mutualFundData: any[] = [];
+  schemePerformanceData: any[] = []; // For the second API response
   baseFileName: string | undefined;
   showPerformanceTable: boolean = false;
   schemeNames: string[] = []; // Array to hold the scheme names
@@ -22,94 +23,91 @@ export class MutualFundComponent implements OnInit {
   //   "Parag Parikh Flexi Cap Fund Direct Growth"
   // ];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.triggerDayPerformance();
-    this.getInvestmentData("MutualFund");
-    this.getSchemeNames();
-    
+    //this.triggerDayPerformance();
+    this.getInvestmentData();
+    //this.getSchemeNames();
   }
 
   onFileSelect(event: any): void {
     this.selectedFile = event.target.files[0];
     console.log(this.selectedFile);
     const fileName = this.selectedFile?.name;
-  // Use a regular expression to remove the date and extension, leaving only the base name
+    // Use a regular expression to remove the date and extension, leaving only the base name
     this.baseFileName = fileName?.split('_').slice(0, 3).join('_');
-    
   }
 
   onUpload() {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-      console.log(formData);
-      
-       if(this.baseFileName == "Mutual_Funds_Order"){
-        var investmentName = "MF_DayPerformance"
-       }
-       else{
-        var investmentName = "MutualFund"
-       }
-      this.http
-        .post<any[]>
-        (
-          `${URL_LIST.ADD_MF_DETAILS}/?fileName=${investmentName}`, 
-          formData
-        )
-        .subscribe((res) => {
-          this.mutualFundData = res;
-        });
+
+      this.http.post<any>(URL_LIST.ADD_MF_DETAILS, formData).subscribe(
+        (res) => {
+          if (res.success === true) {
+            this.toastr.success('File uploaded successfully!', 'Success');
+            this.getInvestmentData(); // Refresh data after upload
+          } else {
+            this.toastr.error('Issue in uploading! Please try again.', 'Error');
+          }
+        },
+        (error) => {
+          this.toastr.error('Server Error! Please try later.', 'Error');
+        }
+      );
     }
   }
 
-  getInvestmentData(investmentName:string) {
-    debugger
-    this.http
-      .get<any[]>(`${URL_LIST.GET_MF_DETAILS}/?Investmentname=${investmentName}`)
-      .subscribe((res) => {
-        this.mutualFundData = res;
-      });
+  getInvestmentData() {
+    this.http.get<any[]>(`${URL_LIST.GET_MF_DETAILS}`).subscribe((res) => {
+      console.log(res);
+
+      this.mutualFundData = res;
+    });
   }
 
   getSchemeNames() {
-    this.http
-      .get<any[]>(`${URL_LIST.GET_SCHEME_NAMES}`)
-      .subscribe((res) => {
-        this.schemeNames = res;
-        console.log(this.schemeNames);
-        
-      });
+    this.http.get<any[]>(`${URL_LIST.GET_SCHEME_NAMES}`).subscribe((res) => {
+      this.schemeNames = res;
+      console.log(this.schemeNames);
+    });
   }
 
-  viewDayPerformance(data:any){
+  viewDayPerformance(data: any) {
     debugger;
     console.log(data.schemeName);
-    
+
     this.getDayPerformance(data.schemeName);
     this.showPerformanceTable = true;
   }
 
-  getDayPerformance(schemeName: string){
-    debugger
+  getDayPerformance(schemeName: string) {
+    debugger;
     this.http
-      .get<any[]>(`${URL_LIST.GET_MF_DAYPERFORMANCE_DETAILS}/?schemeName=${encodeURIComponent(schemeName)}`)
+      .get<any[]>(
+        `${
+          URL_LIST.GET_MF_DAYPERFORMANCE_DETAILS
+        }/?schemeName=${encodeURIComponent(schemeName)}`
+      )
       .subscribe((res) => {
         this.schemePerformanceData = res;
         console.log(res);
-        
+
         console.log(this.schemePerformanceData);
-        
       });
   }
 
-  triggerDayPerformance(){
+  triggerDayPerformance() {
     this.http
       .get<any[]>(`${URL_LIST.TRIGGER_MF_DAYPERFORMANCE_DETAILS}`)
       .subscribe((res) => {
-          console.log(res);
-          
+        console.log(res);
       });
   }
 
